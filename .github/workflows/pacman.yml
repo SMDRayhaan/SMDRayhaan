@@ -2,14 +2,25 @@ name: Generate Pacman Graph
 
 on:
   schedule:
-    - cron: "0 */24 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-      - uses: abozanona/pacman-contribution-graph@main
+
+      - name: Generate Pacman Graph
+        uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: SMDRayhaan
+
+      - name: Commit and Push
+        run: |
+          git config --global user.name "SMDRayhaan"
+          git config --global user.email "240071601118@crescent.education"
+          git add .
+          git commit -m "Generate pacman graph" || echo "No changes"
+          git push

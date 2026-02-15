@@ -13,20 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Generate Pacman Graph
-        uses: abozanona/pacman-contribution-graph@main
+      - uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: SMDRayhaan
           github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Push changes
-        run: |
-          git config --global user.name "SMDRayhaan"
-          git config --global user.email "240071601118@crescent.education"
-          git add output
-          git commit -m "Generate pacman graph" || echo "No changes"
-          git push
-
